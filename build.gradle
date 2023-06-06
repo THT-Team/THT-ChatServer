@@ -26,7 +26,9 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//	runtimeOnly 'com.h2database:h2'
+
+	// https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
+	implementation 'com.mysql:mysql-connector-j:8.0.32'
 
 	// spring websocket
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
