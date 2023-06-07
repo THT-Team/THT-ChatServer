@@ -174,7 +174,7 @@ HELP.md
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
-!**/src/test/**/build/
+!**/src/TokenTest/**/build/
 
 ### IntelliJ IDEA ###
 .idea
@@ -182,6 +182,6 @@ build/
 *.iml
 *.ipr
 !**/src/main/**/out/
-!**/src/test/**/out/
+!**/src/TokenTest/**/out/
 
 **/src/main/resources/static/docs/
