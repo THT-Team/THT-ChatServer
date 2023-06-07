@@ -26,6 +26,7 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
 
 	// https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
 	implementation 'com.mysql:mysql-connector-j:8.0.32'
