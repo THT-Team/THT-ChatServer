@@ -4,7 +4,7 @@ echo "Java Version"
 java -version
 
 echo "Start Spring Boot Application!"
-CURRENT_PID=$(ps -ef | grep api-0.0.1-SNAPSHOT.jar | grep java | awk '{print $2}')
+CURRENT_PID=$(ps -ef | grep chatserver-0.0.1-SNAPSHOT.jar | grep java | awk '{print $2}')
 
 echo $CURRENT_PID
 
