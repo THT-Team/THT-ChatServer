@@ -17,6 +17,6 @@ public class UnauthorizedException extends RuntimeException {
 
     @Override
     public String getMessage() {
-        return String.format("exception : %s, message : %s", this.exception, this.message);
+        return String.format("{exception : %s, message : %s}", this.exception, this.message);
     }
 }
