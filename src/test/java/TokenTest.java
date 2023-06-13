@@ -13,7 +13,7 @@ class TokenTest {
     @DisplayName("테스트 토큰 생성")
     void createJWT() {
         final Date now = new Date();
-        final long ACCESS_TOKEN_VALID_PERIOD =  1000L * 60 * 1;
+        final long ACCESS_TOKEN_VALID_PERIOD =  1000L * 60 * 60;
 
         final Date accessTokenExpireIn = new Date(now.getTime() + ACCESS_TOKEN_VALID_PERIOD);
 
