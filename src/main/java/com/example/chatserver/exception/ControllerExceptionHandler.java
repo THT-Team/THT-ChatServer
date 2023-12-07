@@ -2,6 +2,7 @@ package com.example.chatserver.exception;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
+import com.example.chatserver.exception.custom.EntityStateException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -25,6 +26,15 @@ public class ControllerExceptionHandler {
         final HttpServletRequest request) {
         return ResponseEntity.badRequest()
             .body(ErrorResponse.of(BAD_REQUEST, e.getMessage(), request));
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponse> handlerException(final EntityStateException e,
+        final HttpServletRequest request) {
+
+        return ResponseEntity.badRequest().body(
+            ErrorResponse.of(BAD_REQUEST, e.getMessage(), request)
+        );
     }
 
 }
