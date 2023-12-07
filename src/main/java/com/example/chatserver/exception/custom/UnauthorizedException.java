@@ -1,4 +1,4 @@
-package com.example.chatserver.exception;
+package com.example.chatserver.exception.custom;
 
 public class UnauthorizedException extends RuntimeException {
 

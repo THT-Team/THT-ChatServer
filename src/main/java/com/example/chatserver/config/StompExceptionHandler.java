@@ -1,6 +1,6 @@
 package com.example.chatserver.config;
 
-import com.example.chatserver.exception.UnauthorizedException;
+import com.example.chatserver.exception.custom.UnauthorizedException;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,6 @@
 package com.example.chatserver.config;
 
-import com.example.chatserver.exception.UnauthorizedException;
+import com.example.chatserver.exception.custom.UnauthorizedException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
