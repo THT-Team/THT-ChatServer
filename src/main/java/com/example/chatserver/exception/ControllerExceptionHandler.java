@@ -3,7 +3,6 @@ package com.example.chatserver.exception;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 import com.example.chatserver.exception.custom.EntityStateException;
-import com.example.chatserver.exception.custom.EnumStateNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -38,12 +37,4 @@ public class ControllerExceptionHandler {
         );
     }
 
-    @ExceptionHandler
-    public ResponseEntity<ErrorResponse> handlerException(final EnumStateNotFoundException e,
-        final HttpServletRequest request) {
-
-        return ResponseEntity.badRequest().body(
-            ErrorResponse.of(BAD_REQUEST, e.getMessage(), request)
-        );
-    }
 }

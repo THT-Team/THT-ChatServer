@@ -45,6 +45,24 @@ dependencies {
 	//FCM
 	implementation 'com.google.firebase:firebase-admin:9.2.0'
 
+	//querydsl
+	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+
+}
+
+// querydsl QClass 파일 생성 위치를 지정
+def querydslDir = "src/main/generated"
+
+sourceSets {
+	main.java.srcDirs += [ querydslDir ]
+}
+
+tasks.withType(JavaCompile) {
+	options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
+}
+
+clean {
+	delete file(querydslDir)
 }
 
 tasks.named('test') {

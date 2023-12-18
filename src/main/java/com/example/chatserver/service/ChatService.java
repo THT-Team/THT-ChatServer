@@ -15,12 +15,9 @@ public class ChatService {
 
     private final ChatRepository chatRepository;
 
-    public ChatResponse recordHistory(final String chatRoomNo, final ChatRequest request) {
+    public ChatResponse recordHistory(final Long chatRoomNo, final ChatRequest request) {
 
-        final ChatHistory save = chatRepository.save(
-            ChatHistory.of(Long.parseLong(chatRoomNo), request.sender(), request.senderUuid(),
-                request.msg(), request.imgUrl())
-        );
+        final ChatHistory save = chatRepository.save(request.toEntity(chatRoomNo));
 
         return ChatResponse.of(save);
     }
