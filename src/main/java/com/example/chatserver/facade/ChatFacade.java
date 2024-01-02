@@ -18,8 +18,10 @@ public class ChatFacade {
 
     public ChatResponse doChat(ChatRequest request, Long chatRoomNo) {
 
+        //해당 방에 존재하는 모든 유저의 토큰을 찾았음
         fcmService.findFcmTokenList(chatRoomNo);
 
+        //
         return chatService.recordHistory(chatRoomNo, request);
     }
 }

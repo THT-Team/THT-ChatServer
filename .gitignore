@@ -185,3 +185,6 @@ build/
 !**/src/TokenTest/**/out/
 
 **/src/main/resources/static/docs/
+
+#querydsl
+**/src/main/generated/**
