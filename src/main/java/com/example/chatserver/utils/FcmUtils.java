@@ -1,36 +1,67 @@
 package com.example.chatserver.utils;
 
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.FirebaseMessagingException;
-import com.google.firebase.messaging.Message;
+import com.example.chatserver.exception.custom.FcmException;
+import com.google.firebase.messaging.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.Date;
+import java.util.List;
+
+@Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FcmUtils {
 
-    public static void broadCast(final String a) {
-        // This registration token comes from the client FCM SDKs.
-        final String registrationToken = "";
+    private static final int FCM_PUSH_LIMIT_SIZE = 500;
+    private static final long ONE_WEEK = (long) 60 * 60 * 24 * 7;
+    private static final long EXPIRED_TIME_FOR_UNIX = new Date(new Date().getTime() + ONE_WEEK).getTime();
 
-        // See documentation on defining a message payload.
-        Message message = Message.builder()
-            .putData("score", "850")
-            .putData("time", "2:45")
-            .setToken(registrationToken)
-            .build();
+    public static void broadCast(final List<String> registrationTokens, final String senderName, final String msg, final String senderThumbnail) {
 
-        // Send a message to the device corresponding to the provided
-        // registration token.
-        String response = null;
+        limitSizeValidate(registrationTokens);
+
+        MulticastMessage message = MulticastMessage.builder()
+                .setNotification(Notification.builder()
+                        .setTitle(senderName)
+                        .setBody(msg)
+                        .build())
+                .putData("senderThumbnail", senderThumbnail)
+                .setAndroidConfig(AndroidConfig.builder()
+                        .setTtl(ONE_WEEK)
+                        .setNotification(AndroidNotification.builder()
+                                .setIcon(senderThumbnail)
+                                .build())
+                        .build())
+                .setApnsConfig(ApnsConfig.builder()
+                        .putHeader("apns-expiration", Long.toString(EXPIRED_TIME_FOR_UNIX))
+                        .build())
+                .addAllTokens(registrationTokens)
+                .build();
+
+        BatchResponse response = null;
+
         try {
-            response = FirebaseMessaging.getInstance().send(message);
+            response = FirebaseMessaging.getInstance().sendEachForMulticast(message);
         } catch (FirebaseMessagingException e) {
-            //전송 실패
-            throw new RuntimeException(e);
+            log.error(String.format("sender : %s, push tokens : %s, FirebaseMessagingException : %s", senderName, registrationTokens, e.getMessage()));
+        } finally {
+            assert response != null;
+            pushSuccessValidate(registrationTokens, response);
         }
 
-        // Response is a message ID string.
-        System.out.println("Successfully sent message: " + response);
+    }
+
+    private static void limitSizeValidate(final List<String> registrationTokens) {
+        if (registrationTokens.size() > FCM_PUSH_LIMIT_SIZE) {
+            throw FcmException.overSizeException(registrationTokens.size());
+        }
+    }
+
+    private static void pushSuccessValidate(final List<String> registrationTokens, final BatchResponse response) {
+
+        if (response.getSuccessCount() != registrationTokens.size()) {
+            log.error(response.getFailureCount() + " message were sent failure");
+        }
     }
 }
