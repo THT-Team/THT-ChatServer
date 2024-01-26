@@ -33,9 +33,11 @@ public class FcmUtils {
                                 .setIcon(senderThumbnail)
                                 .build())
                         .build())
-                .setApnsConfig(ApnsConfig.builder()
-                        .putHeader("apns-expiration", Long.toString(EXPIRED_TIME_FOR_UNIX))
-                        .build())
+                .setApnsConfig(
+                        ApnsConfig.builder()
+                                .setAps(Aps.builder().build())
+                                .putHeader("apns-expiration", Long.toString(EXPIRED_TIME_FOR_UNIX))
+                                .build())
                 .addAllTokens(registrationTokens)
                 .build();
 

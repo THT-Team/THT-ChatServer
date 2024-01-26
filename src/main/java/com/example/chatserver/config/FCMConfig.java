@@ -6,8 +6,11 @@ import com.google.firebase.FirebaseOptions;
 import jakarta.annotation.PostConstruct;
 import java.io.FileInputStream;
 import java.io.IOException;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 
+@Slf4j
 @Configuration
 public class FCMConfig {
 
@@ -20,5 +23,7 @@ public class FCMConfig {
             .build();
 
         FirebaseApp.initializeApp(options);
+
+        log.info("FCM Setting and Connect complete");
     }
 }
