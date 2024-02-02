@@ -16,7 +16,7 @@ public class FCMConfig {
 
     @PostConstruct
     private void init() throws IOException {
-        FileInputStream serviceAccount = new FileInputStream("src/main/resources/security/Server-Security/fcm/tht-fcm-firebase-adminsdk-waqsh-7f9e6071b2.json");
+        FileInputStream serviceAccount = new FileInputStream("src/main/resources/security/Server-Security/fcm/tht-push-fcm-firebase-adminsdk-secretkey.json");
 
         FirebaseOptions options = FirebaseOptions.builder()
             .setCredentials(GoogleCredentials.fromStream(serviceAccount))
