@@ -25,7 +25,7 @@ jobs:
     - name: CheckOut
       uses: actions/checkout@v4
       with:
-        token: ${{ secrets.THT_SERVER_ADMIN_TOKEN }}
+        token: ${{ secrets.THT-SERVER-ACTION-TOKEN }}
         submodules: true
     
     - name: Set up JDK 17
