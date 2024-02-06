@@ -6,7 +6,7 @@
 # For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-gradle
 
 name: THT ChatServer
-run-name: ${{ github.actor_id }} is learning GitHub Actions
+run-name: ${{ github.actor_name }} is learning GitHub Actions
 
 on:
   push:
