@@ -24,7 +24,6 @@ jobs:
     steps:
     - name: CheckOut
       uses: actions/checkout@v4
-      run: git branch --show-current
       with:
         token: ${{ secrets.THT_SERVER_ADMIN_TOKEN }}
         submodules: true
@@ -43,7 +42,8 @@ jobs:
     - name: Checkout
     
     - name: Build with Gradle
-      run: 
+      run:
+        git branch --show-current
         ./gradlew -version
         ./gradlew clean build
 
