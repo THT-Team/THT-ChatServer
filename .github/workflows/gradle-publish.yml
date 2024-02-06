@@ -6,7 +6,7 @@
 # For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-gradle
 
 name: THT ChatServer
-run-name: ${{ github.actor_name }} is learning GitHub Actions
+run-name: ${{ github.actor }} is learning GitHub Actions
 
 on:
   push:
@@ -22,7 +22,14 @@ jobs:
       packages: write
 
     steps:
-    - uses: actions/checkout@v4
+    - name: CheckOut
+      uses: 
+        actions/checkout@v4
+        git branch --show-current
+      with:
+        token: ${{ secrets.THT_SERVER_ADMIN_TOKEN }}
+        submodules: true
+    
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
@@ -34,8 +41,12 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@ec92e829475ac0c2315ea8f9eced72db85bb337a # v3.0.0
 
+    - name: Checkout
+    
     - name: Build with Gradle
-      run: ./gradlew clean build
+      run: 
+        ./gradlew -version
+        ./gradlew clean build
 
     # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
     # the publishing section of your build.gradle
