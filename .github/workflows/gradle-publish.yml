@@ -42,7 +42,6 @@ jobs:
     
     - name: Build with Gradle
       run: 
-        git branch --show-current
         ./gradlew -version
         ./gradlew clean build
 
