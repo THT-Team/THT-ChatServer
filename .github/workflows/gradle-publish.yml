@@ -23,9 +23,8 @@ jobs:
 
     steps:
     - name: CheckOut
-      uses: 
-        actions/checkout@v4
-        git branch --show-current
+      uses: actions/checkout@v4
+      run: git branch --show-current
       with:
         token: ${{ secrets.THT_SERVER_ADMIN_TOKEN }}
         submodules: true
