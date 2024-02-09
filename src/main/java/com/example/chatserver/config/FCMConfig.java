@@ -4,11 +4,11 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import jakarta.annotation.PostConstruct;
-import java.io.FileInputStream;
-import java.io.IOException;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
+
+import java.io.IOException;
 
 @Slf4j
 @Configuration
@@ -16,10 +16,12 @@ public class FCMConfig {
 
     @PostConstruct
     private void init() throws IOException {
-        FileInputStream serviceAccount = new FileInputStream("src/main/resources/security/Server-Security/fcm/tht-push-fcm-firebase-adminsdk-secretkey.json");
+
+        String fileResourceURL = "security/Server-Security/fcm/tht-push-fcm-firebase-adminsdk-secretkey.json";
+        ClassPathResource resource = new ClassPathResource(fileResourceURL);
 
         FirebaseOptions options = FirebaseOptions.builder()
-            .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+            .setCredentials(GoogleCredentials.fromStream(resource.getInputStream()))
             .build();
 
         FirebaseApp.initializeApp(options);
