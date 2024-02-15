@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
           run:
-            working-directory: ${{ secrets.ACTION_TOKEN }}
+            working-directory: ${{ env.working-directory }}
     permissions:
       contents: read
       packages: write
@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ${{ secrets.ACTION_TOKEN }}
+        working-directory: ${{ env.working-directory }}
 
     steps:
     - name: ls
