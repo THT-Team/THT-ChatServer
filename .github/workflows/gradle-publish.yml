@@ -12,10 +12,15 @@ on:
   push:
     branches:
       - main
-
+env:
+  working-directory: ./
+      
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+          run:
+            working-directory: ${{ secrets.ACTION_TOKEN }}
     permissions:
       contents: read
       packages: write
@@ -50,14 +55,11 @@ jobs:
   deplpoy:
     needs: build
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ secrets.ACTION_TOKEN }}
 
     steps:
-    - name: CheckOut
-      uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.ACTION_TOKEN }}
-        submodules: true
-        
     - name: ls
       run: ls
 
