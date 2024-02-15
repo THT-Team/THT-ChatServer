@@ -40,9 +40,7 @@ jobs:
         uses: gradle/actions/setup-gradle@ec92e829475ac0c2315ea8f9eced72db85bb337a # v3.0.0
 
       - name: Build with Gradle
-        run:
-          ./gradlew -version
-          ./gradlew clean build
+        run: ./gradlew clean build
 
       - name: ls
         run: ls
