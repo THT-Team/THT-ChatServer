@@ -52,6 +52,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: CheckOut
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.ACTION_TOKEN }}
+        submodules: true
+        
     - name: ls
       run: ls
 
