@@ -12,8 +12,8 @@ on:
   push:
     branches:
       - main
-env:
-  DEPLOY_FILE_NAME: deployfile-`date +%Y%m%d.%H%M%S`
+# env:
+#   DEPLOY_FILE_NAME: deployfile-`date +%Y%m%d.%H%M%S`
   
 jobs:
   build:
@@ -45,7 +45,8 @@ jobs:
         run: ./gradlew clean build
 
       - name: Make Zip File
-        run: zip -qq -r ./${{ env.DEPLOY_FILE_NAME }}.zip .
+        id: file
+        run: name = zip -qq -r ./deployfile-`date +%Y%m%d.%H%M%S`.zip . >> "$GITHUB_OUTPUT"
         shell: bash
         
       - name: AWS credential
@@ -56,7 +57,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Upload to AWS S3
-        run: aws s3 cp ./${{ env.DEPLOY_FILE_NAME }}.zip s3://${{ secrets.S3_DEPLOY_BUCKET }}/${{ env.DEPLOY_FILE_NAME }}.zip
+        run: aws s3 cp ./${{ steps.file.outputs.name }}.zip s3://${{ secrets.S3_DEPLOY_BUCKET }}/${{ steps.file.outputs.name }}.zip
 
 #    - name: Deploy EC2
 #      run: aws deploy create-deployment --application-name ${{ env.AWS_CODE_DEPLOY_APPLICATION }} --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name ${{ env.AWS_CODE_DEPLOY_GROUP }} --s3-location bucket=$AWS_S3_BUCKET,key=cicdtest/$GITHUB_SHA.zip,bundleType=zip
