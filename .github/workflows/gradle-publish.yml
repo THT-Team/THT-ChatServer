@@ -44,9 +44,16 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build
 
+      - name : set time zone
+        uses: szenius/set-timezone@v1.2
+        with:
+          timezoneLinux: "Asia/Seoul"
+          timezoneMacos: "Asia/Seoul"
+          timezoneWindows: "Seoul Standard Time"
+          
       - name: make env now date
         id: now
-        run: echo "date=`date +%Y%m%d.%H%M%S`" >> "$GITHUB_OUTPUT"
+        run: echo "date=`date +%Y%m%d_%H:%M:%S`" >> "$GITHUB_OUTPUT"
         
       - name: Make Zip File
         id: file
