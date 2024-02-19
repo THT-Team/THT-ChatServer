@@ -12,9 +12,10 @@ on:
   push:
     branches:
       - main
-# env:
-#   DEPLOY_FILE_NAME: deployfile-`date +%Y%m%d.%H%M%S`
-  
+env:
+  AWS_CODE_DEPLOY_APPLICATION: THT-ChatServer-GitAction
+  AWS_CODE_DEPLOY_GROUP: THT-ChatServer-GitAction-SingleServer
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -50,16 +51,16 @@ jobs:
           timezoneLinux: "Asia/Seoul"
           timezoneMacos: "Asia/Seoul"
           timezoneWindows: "Seoul Standard Time"
-          
+
       - name: make env now date
         id: now
         run: echo "date=`date +%Y%m%d_%H:%M:%S`" >> "$GITHUB_OUTPUT"
-        
+
       - name: Make Zip File
         id: file
         run: zip -qq -r ./deployfile-${{ steps.now.outputs.date }}.zip .
         shell: bash
-        
+
       - name: AWS credential
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -70,9 +71,9 @@ jobs:
       - name: Upload to AWS S3
         run: aws s3 cp ./deployfile-${{ steps.now.outputs.date }}.zip s3://${{ secrets.S3_DEPLOY_BUCKET }}/deployfile-${{ steps.now.outputs.date }}.zip
 
-#    - name: Deploy EC2
-#      run: aws deploy create-deployment --application-name ${{ env.AWS_CODE_DEPLOY_APPLICATION }} --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name ${{ env.AWS_CODE_DEPLOY_GROUP }} --s3-location bucket=$AWS_S3_BUCKET,key=cicdtest/$GITHUB_SHA.zip,bundleType=zip
-#
+      - name: Deploy EC2
+        run: aws deploy create-deployment --application-name ${{ env.AWS_CODE_DEPLOY_APPLICATION }} --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name ${{ env.AWS_CODE_DEPLOY_GROUP }} --s3-location bucket=${{ secrets.S3_DEPLOY_BUCKET }},key=/deployfile-${{ steps.now.outputs.date }}.zip,bundleType=zip
+
 #    # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
 #    # the publishing section of your build.gradle
 #    - name: Publish to GitHub Packages
