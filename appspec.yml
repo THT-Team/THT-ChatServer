@@ -3,15 +3,15 @@ os: linux
 
 files:
   - source: /
-    destination: /home/ubuntu/deploy
+    destination: /home/tht-chat-admin/deploy
 
 permissions:
-  - object: /home/ubuntu/deploy/
-    owner: ubuntu
-    group: ubuntu
+  - object: /home/tht-chat-admin/deploy/
+    owner: tht-chat-admin
+    group: tht-chat-admin
 
 hooks:
   AfterInstall:
     - location: /start_server.sh
       timeout: 60
-      runas: ubuntu
+      runas: tht-chat-admin
