@@ -19,4 +19,4 @@ fi
 
 echo ">어플리케이션 배포 진행!"
 
-nohup java -jar ~/deploy/chatserver-0.0.1-SNAPSHOT.jar >> ~/deploy/logs/$(date '+%Y-%m-%d')_api.log 2>&1 &
+nohup java -jar ~/deploy/build/libs/chatserver-0.0.1-SNAPSHOT.jar >> ~/deploy/logs/$(date '+%Y-%m-%d')_api.log 2>&1 &
