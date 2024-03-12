@@ -1,6 +1,7 @@
 package com.example.chatserver.config;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.messaging.Message;
@@ -10,6 +11,7 @@ import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.stereotype.Component;
 
+@Log4j2
 @Component
 @RequiredArgsConstructor
 @Order(Ordered.HIGHEST_PRECEDENCE + 99)
@@ -27,6 +29,8 @@ public class StompHandler implements ChannelInterceptor {
             final String authorization = jwtUtils.extractJwt(accessor);
 
             jwtUtils.validateToken(authorization);
+
+            log.info("성공");
         }
         return message;
     }
