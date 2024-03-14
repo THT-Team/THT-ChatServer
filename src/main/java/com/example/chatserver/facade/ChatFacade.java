@@ -22,10 +22,10 @@ public class ChatFacade {
 
     public ChatResponse doChat(ChatRequest request, Long chatRoomNo) {
 
-        final UserFcmGroup fcmGroup = fcmService.findFcmTokenList(chatRoomNo, request.senderUuid());
+//        final UserFcmGroup fcmGroup = fcmService.findFcmTokenList(chatRoomNo, request.senderUuid());
         final String senderThumbnail = userProfilePhotoService.findByUuid(request.senderUuid()).getThumbnail();
 
-        FcmUtils.broadCast(fcmGroup.getFcmListNotInSender(), request.sender(), request.msg(), senderThumbnail);
+//        FcmUtils.broadCast(fcmGroup.getFcmListNotInSender(), request.sender(), request.msg(), senderThumbnail);
 
         return chatService.recordHistory(chatRoomNo, request);
     }
