@@ -1,3 +1,17 @@
 spring:
     config:
         import: security/Server-Security/application-security.yaml
+
+    thymeleaf:
+        prefix: classpath:static/
+        suffix: .html
+        cache: false
+
+springdoc:
+    swagger-ui:
+        url: /docs/open-api-3.0.1.json
+        path: /docs/swagger
+        groups-order: DESC # path, query, body, response 순으로 출력
+        tags-sorter: alpha # 태그를 알파벳 순으로 정렬
+    default-consumes-media-type: application/json;charset=UTF-8
+    default-produces-media-type: application/json;charset=UTF-8

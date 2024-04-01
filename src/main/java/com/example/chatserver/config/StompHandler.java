@@ -30,7 +30,12 @@ public class StompHandler implements ChannelInterceptor {
 
             jwtUtils.validateToken(authorization);
 
-            log.info("성공");
+            log.info("connect");
+        }
+
+        if (StompCommand.DISCONNECT == accessor.getCommand()) {
+
+            log.info("disconnect");
         }
         return message;
     }
